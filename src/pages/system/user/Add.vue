@@ -65,7 +65,7 @@
           <a-form-item label="邮箱">
             <a-input
               autocomplete="off"
-              v-decorator="['email', {rules: [{ required: true, message: '请输入正确的邮箱', whitespace: true}]}]"
+              v-decorator="['email', {rules: [{ required: true, pattern: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, message: '请输入正确的邮箱', whitespace: true}]}]"
               placeholder="请输入邮箱"
             />
           </a-form-item>
