@@ -140,6 +140,7 @@ export default {
   },
   authorize: {
     //权限校验注入设置
+    getList: 'SysMenuQuery',
     add: 'SysMenuAdd',
     edit: 'SysMenuEdit',
     del: 'SysMenuDelete',

@@ -14,8 +14,10 @@ module.exports = {
   ROLE: `${BASE_URL}/staff/role`,
   USER: `${BASE_URL}/staff/user`,
   MENU: `${BASE_URL}/staff/menu`,
+  Log: `${BASE_URL}/staff/log`,
+  PERSONAL_SETTING: `${BASE_URL}/common/personalSetting`, //个人设置
 
-  UPLOAD_PIC: `${BASE_URL}/index/file/upload`
+  UPLOAD_PIC: `${BASE_URL}/index/file/upload`,
 
-  // SOCKET_MESSAGE: `${BASE_SOCKET_URL}/message` //websocket消息通知
+  SOCKET_MESSAGE: `ws://swoole.io:80/message` //websocket消息通知
 }
