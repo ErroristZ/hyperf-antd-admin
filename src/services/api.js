@@ -15,7 +15,6 @@ module.exports = {
   USER: `${BASE_URL}/staff/user`,
   MENU: `${BASE_URL}/staff/menu`,
   Log: `${BASE_URL}/staff/log`,
-  PERSONAL_SETTING: `${BASE_URL}/common/personalSetting`, //个人设置
   MESSAGE: `${BASE_URL}/staff/message`,
 
   UPLOAD_PIC: `${BASE_URL}/index/file/upload`,

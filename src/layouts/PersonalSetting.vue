@@ -16,7 +16,7 @@
             <a-form-item label="真实姓名">
               <a-input
                 autocomplete="off"
-                v-decorator="['realName', {rules: [{ required: true, message: '真实姓名不能为空', whitespace: true}]}]"
+                v-decorator="['nickname', {rules: [{ required: true, message: '真实姓名不能为空', whitespace: true}]}]"
                 placeholder="请输入真实姓名"
               />
             </a-form-item>
@@ -25,7 +25,7 @@
             <a-form-item label="手机号">
               <a-input
                 autocomplete="off"
-                v-decorator="['phone', {rules: [{ required: true, pattern: /^(13|14|15|16|17|18|19)[\d]{9}$/, message: '请输入正确的手机号', whitespace: true}]}]"
+                v-decorator="['mobile', {rules: [{ required: true, pattern: /^(13|14|15|16|17|18|19)[\d]{9}$/, message: '请输入正确的手机号', whitespace: true}]}]"
                 placeholder="请输入手机号"
               />
             </a-form-item>
@@ -64,7 +64,7 @@
 
 <script>
 import { delObjEmptyVal, fileToBase64 } from '../utils/util'
-import { PERSONAL_SETTING, UPLOAD_PIC } from '@/services/api'
+import { USER, UPLOAD_PIC } from '@/services/api'
 import { request, METHOD } from '@/utils/request'
 import { logout } from '@/services/user'
 
@@ -198,9 +198,10 @@ export default {
     handleSend() {
       var that = this
       var sendData = delObjEmptyVal(that.form.getFieldsValue())
-      request(PERSONAL_SETTING, METHOD.PUT, sendData)
+      sendData.id = that.id
+      request(USER + '/stting/update', METHOD.PUT, sendData)
         .then(function (result) {
-          if (result.data.code !== 0) {
+          if (result.data.code !== 200) {
             that.confirmLoading = false
             that.$message.error(result.data.message, 3)
             return false
@@ -230,17 +231,17 @@ export default {
      */
     loadData() {
       var that = this
-      request(PERSONAL_SETTING, METHOD.GET, {})
+      request(USER + '/stting', METHOD.GET, {})
         .then(function (result) {
-          if (result.data.code !== 0) {
+          if (result.data.code !== 200) {
             that.dataLoading = false
             that.$message.error(result.data.message, 3)
             return false
           }
           that.dataLoading = false
           that.form.setFieldsValue({
-            realName: result.data.data.realName,
-            phone: result.data.data.phone,
+            nickname: result.data.data.nickname,
+            mobile: result.data.data.mobile,
             avatar: result.data.data.avatar
           })
           that.avatar = result.data.data.avatar

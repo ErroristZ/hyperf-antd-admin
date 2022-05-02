@@ -111,7 +111,7 @@ export default {
         },
         {
           title: '创建者',
-          dataIndex: 'id',
+          dataIndex: 'user_id',
           allowAddSearch: false,
           scopedSlots: { customRender: 'J_createUser' }
         },
@@ -312,7 +312,7 @@ export default {
     del(record) {
       var that = this
       that.loading = true
-      request(MESSAGE + '/' + record.messageId, METHOD.DELETE)
+      request(MESSAGE + '/delete?id=' + record.id, METHOD.DELETE)
         .then(function (result) {
           if (result.data.code !== 200) {
             that.loading = false

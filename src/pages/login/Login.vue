@@ -117,7 +117,10 @@ export default {
         const { token, expireAt, timeFix } = loginRes.data
         that.logging = false
         that.$message.success(timeFix, 3)
-        setAuthorization({ token: token, expireAt: expireAt })
+        setAuthorization({
+          token: token,
+          expireAt: new Date(new Date().getTime() + expireAt * 1000)
+        })
         getUserinfo().then(result => {
           that.setUser(result.data.data.user_info)
         })

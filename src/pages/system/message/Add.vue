@@ -116,9 +116,9 @@ export default {
     handleSend() {
       const that = this
       const sendData = delObjEmptyVal(that.form.getFieldsValue())
-      request(MESSAGE, METHOD.POST, sendData)
+      request(MESSAGE + '/add', METHOD.POST, sendData)
         .then(function (result) {
-          if (result.data.code !== 0) {
+          if (result.data.code !== 200) {
             that.confirmLoading = false
             that.$message.error(result.data.message, 3)
             return false
