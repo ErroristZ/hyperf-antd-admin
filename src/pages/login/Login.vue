@@ -114,7 +114,9 @@ export default {
       that.logging = false
       const loginRes = res.data
       if (loginRes.code == 200) {
-        const { token, expireAt } = loginRes.data
+        const { token, expireAt, timeFix } = loginRes.data
+        that.logging = false
+        that.$message.success(timeFix, 3)
         setAuthorization({ token: token, expireAt: expireAt })
         getUserinfo().then(result => {
           that.setUser(result.data.data.user_info)

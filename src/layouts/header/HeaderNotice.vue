@@ -8,7 +8,7 @@
               <a-list-item v-for="(v, k) in messageData[1].list" :key="k">
                 <a-list-item-meta :title="v.title" :description="v.content" />
                 <template slot="actions">
-                  <span v-text="dateFormat(v.createTime)"></span>
+                  <span v-text="dateFormat(v.created_at)"></span>
                 </template>
               </a-list-item>
               <div style="text-align: center;" v-if="messageData[1].total > 0">
@@ -26,7 +26,7 @@
               <a-list-item v-for="(v, k) in messageData[2].list" :key="k">
                 <a-list-item-meta :title="v.title" :description="v.content" />
                 <template slot="actions">
-                  <span v-text="dateFormat(v.createTime)"></span>
+                  <span v-text="dateFormat(v.created_at)"></span>
                 </template>
               </a-list-item>
               <div style="text-align: center;" v-if="messageData[2].total > 0">
@@ -44,7 +44,7 @@
               <a-list-item v-for="(v, k) in messageData[3].list" :key="k">
                 <a-list-item-meta :title="v.title" :description="v.content" />
                 <template slot="actions">
-                  <span v-text="dateFormat(v.createTime)"></span>
+                  <span v-text="dateFormat(v.created_at)"></span>
                 </template>
               </a-list-item>
               <div style="text-align: center;" v-if="messageData[3].total > 0">

@@ -27,7 +27,7 @@
       </a-form-item>
       <a-form-item label="人员">
         <a-select
-          v-decorator="['userIds', {rules: [{required: true, message: '请选择要通知的人员', type: 'array' }]}]"
+          v-decorator="['Ids', {rules: [{required: true, message: '请选择要通知的人员', type: 'array' }]}]"
           mode="multiple"
           placeholder="请选择要通知的人员"
           :get-popup-container="() => $refs.selectRoot"
@@ -42,7 +42,7 @@
               </a-space>
             </div>
           </div>
-          <a-select-option v-for="(v, k) in user" :key="k" :value="v.userId">{{v.username}} - {{v.phone}} - {{v.realName}}</a-select-option>
+          <a-select-option v-for="(v, k) in user" :key="k" :value="v.id">{{v.name}} - {{v.mobile}} - {{v.nickname}}</a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item label="类型">
@@ -128,7 +128,7 @@ export default {
           const sendSocketData = {
             cmd: 'message.resetNotReadTotal',
             data: {
-              userIds: sendData.userIds
+              Ids: sendData.Ids
             }
           }
           window.socketNotice.send(JSON.stringify(sendSocketData))
@@ -153,12 +153,9 @@ export default {
      */
     getUser() {
       const that = this
-      const sendData = {
-        queryType: 1
-      }
-      request(USER, METHOD.GET, sendData)
+      request(USER + '/all', METHOD.GET)
         .then(function (result) {
-          if (result.data.code !== 0) {
+          if (result.data.code !== 200) {
             that.loading = false
             that.$message.error(result.data.message, 3)
             return false
@@ -175,8 +172,8 @@ export default {
     userSelected() {
       const that = this
       that.form.setFieldsValue({
-        userIds: that.user.map(v => {
-          return v.userId
+        Ids: that.user.map(v => {
+          return v.id
         })
       })
     }

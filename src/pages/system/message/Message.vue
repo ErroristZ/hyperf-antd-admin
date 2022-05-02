@@ -4,7 +4,7 @@
       :columns="columns"
       :data-source="dataSource"
       :loading="loading"
-      rowKey="messageId"
+      rowKey="id"
       @search="onSearch"
       @refresh="onRefresh"
       :format-conditions="true"
@@ -35,10 +35,10 @@
           <div :style="{width: '350px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', cursor: 'pointer'}">{{text}}</div>
         </a-tooltip>
       </div>
-      <div slot="J_createUser" slot-scope="{text}">{{formatUser[text] ? formatUser[text].username : ''}}</div>
+      <div slot="J_createUser" slot-scope="{text}">{{formatUser[text] ? formatUser[text].name : ''}}</div>
       <div slot="J_messageUser" slot-scope="{text}">
         <span v-for="(v, k) in text" :key="k">
-          <a-tag v-if="formatUser[v]">{{formatUser[v].username}}</a-tag>
+          <a-tag v-if="formatUser[v]">{{formatUser[v].name}}</a-tag>
         </span>
       </div>
       <div slot="J_type" slot-scope="{text}">
@@ -111,7 +111,7 @@ export default {
         },
         {
           title: '创建者',
-          dataIndex: 'userId',
+          dataIndex: 'id',
           allowAddSearch: false,
           scopedSlots: { customRender: 'J_createUser' }
         },
@@ -138,7 +138,7 @@ export default {
         },
         {
           title: '创建时间',
-          dataIndex: 'createTime',
+          dataIndex: 'created_at',
           dataType: 'datetimeRange',
           searchAble: true,
           scopedSlots: { customRender: 'J_createTime' }
@@ -157,6 +157,7 @@ export default {
   },
   authorize: {
     //权限校验注入设置
+    getList: 'SysMessageQuery',
     add: 'SysMessageAdd',
     del: 'SysMessageDelete'
   },
@@ -180,18 +181,18 @@ export default {
       const sendData = that.conditions
       sendData.page = that.page
       sendData.limit = that.limit
-      request(MESSAGE, METHOD.GET, sendData)
+      request(MESSAGE + '/list', METHOD.GET, sendData)
         .then(function (result) {
           if (result.data.code !== 200) {
             that.loading = false
             that.$message.error(result.data.message, 3)
             return false
           }
-          const { list, page, limit, total } = result.data.data
+          const { list, currentPage, perPage, total } = result.data.data
           that.dataSource = list
-          that.page = page
+          that.page = currentPage
           that.total = total
-          that.limit = limit
+          that.limit = perPage
           that.loading = false
         })
         .catch(function (error) {
@@ -206,10 +207,7 @@ export default {
      */
     getUser() {
       const that = this
-      const sendData = {
-        queryType: 1
-      }
-      request(USER, METHOD.GET, sendData)
+      request(USER + '/all', METHOD.GET)
         .then(function (result) {
           if (result.data.code !== 200) {
             that.loading = false
@@ -218,7 +216,7 @@ export default {
           }
           const formatUser = {}
           result.data.data.forEach(v => {
-            formatUser[v.userId] = v
+            formatUser[v.id] = v
           })
           that.formatUser = formatUser
         })
