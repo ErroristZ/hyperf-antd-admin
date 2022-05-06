@@ -3,7 +3,7 @@
 // const BASE_URL = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_BASE_URL : API_PROXY_PREFIX
 
 const BASE_URL = process.env.VUE_APP_API_BASE_URL
-// const BASE_URL = process.env.VUE_APP_API_BASE_URL
+const SOCKET_BASE_URL = process.env.VUE_APP_SOCKET_BASE_URL
 module.exports = {
   LOGIN: `${BASE_URL}/staff/login`,
   USERINFO: `${BASE_URL}/staff/initialization`,
@@ -19,5 +19,5 @@ module.exports = {
 
   UPLOAD_PIC: `${BASE_URL}/index/file/upload`,
 
-  SOCKET_MESSAGE: `ws://swoole.io:80/message` //websocket消息通知
+  SOCKET_MESSAGE: `${SOCKET_BASE_URL}/message` //websocket消息通知
 }

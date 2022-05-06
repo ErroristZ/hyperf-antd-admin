@@ -1,5 +1,5 @@
-import {LOGIN, ROUTES,USERINFO} from '@/services/api'
-import {request, METHOD, removeAuthorization} from '@/utils/request'
+import { LOGIN, ROUTES, USERINFO } from '@/services/api'
+import { request, METHOD, removeAuthorization } from '@/utils/request'
 
 /**
  * 登录服务
